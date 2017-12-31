@@ -7,7 +7,7 @@ const jsondiffpatch = require('jsondiffpatch');
 const _jsondiffpatch = jsondiffpatch.create();
 const _jsondiffpatchFormatters = jsondiffpatch.formatters;
 
-export class BusybeeHtmlReporter {
+export default class BusybeeHtmlReporter {
 
   outputDir: string;
   projectName: string;
