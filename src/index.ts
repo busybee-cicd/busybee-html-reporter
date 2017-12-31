@@ -144,3 +144,5 @@ export class BusybeeHtmlReporter {
   }
 
 }
+
+export default BusybeeHtmlReporter;
