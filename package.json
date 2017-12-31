@@ -1,0 +1,44 @@
+{
+  "name": "busybee-html-reporter",
+  "version": "1.0.0",
+  "description": "Publishes Busybee REST Test Suites to an html site",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "handlebars": "^4.0.11",
+    "jsondiffpatch": "^0.2.5",
+    "lodash": "^4.17.4",
+    "random-id": "0.0.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.0",
+    "@types/handlebars": "^4.0.36",
+    "@types/node": "^8.0.28",
+    "ava": "^0.23.0",
+    "typescript": "^2.6.2",
+    "watch": "^1.0.2",
+    "npm-watch": "^0.3.0"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src",
+        "test"
+      ],
+      "extensions": [
+        "js,hbs"
+      ],
+      "quiet": false
+    }
+  },
+  "scripts": {
+    "build": "tsc && cp -a src/templates/* dist/src/templates && cp -a src/assets/* dist/src/assets",
+    "watch": "watch 'npm run build' {src,test}",
+    "start": "node ./dist/src/index.js",
+    "debug": "NODE_DEBUG=request DEBUG=true node ./dist/src/index.js",
+    "test": "tsc && ava dist/test/**/*.js"
+  },
+  "author": "Simon Townsend",
+  "license": "ISC"
+}

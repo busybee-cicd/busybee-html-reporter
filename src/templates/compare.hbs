@@ -1,0 +1,16 @@
+<div class="compare">
+    <div id="compareBtns-{{responsePart}}-{{id}}"
+         style="margin-bottom: 1em"
+         role="group"
+         aria-label="{{repsonsePart}} compare options">
+        <button type="button" class="btn btn-sm btn-secondary active" onclick="showComparison('sideBySide','{{responsePart}}', '{{id}}')">side-by-side</button>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="showComparison('diff', '{{responsePart}}', '{{id}}')">diff</button>
+    </div>
+    <div id="sideBySide-{{responsePart}}-{{id}}">
+        {{sideBySide payload}}
+    </div>
+    <div id="diff-{{responsePart}}-{{id}}" style="display: none;">
+        {{diff payload}}
+    </div>
+</div>
+

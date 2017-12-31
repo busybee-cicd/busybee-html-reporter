@@ -1,0 +1,74 @@
+.compare {
+    margin: 1em 0 1em 0;
+}
+
+.card-block {
+    padding: 1em;
+}
+
+.test-set-header a {
+    font-weight: bold;
+}
+
+.test-set-header a:hover {
+    text-decoration: none;
+}
+
+.test-set-header * {
+    display: inline-block;
+}
+
+.test-header {
+    padding: .25em .5em;
+}
+
+.test-header a {
+    font-weight: bold;
+}
+
+.test-header a:hover {
+    text-decoration: none;
+}
+
+.test-header * {
+    display: inline-block;
+}
+
+.test-content {
+    margin: 0 1em;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+/*
+ Bootstrap overwrites
+*/
+
+.card-header {
+    padding: .25rem .75rem;
+}
+
+/*
+jsondiff overwrites (reverse the green and red)
+*/
+.jsondiffpatch-added .jsondiffpatch-property-name,
+.jsondiffpatch-added .jsondiffpatch-value pre,
+.jsondiffpatch-modified .jsondiffpatch-right-value pre,
+.jsondiffpatch-textdiff-added {
+    background: #ffbbbb;
+}
+
+.jsondiffpatch-deleted .jsondiffpatch-property-name,
+.jsondiffpatch-deleted pre,
+.jsondiffpatch-modified .jsondiffpatch-left-value pre,
+.jsondiffpatch-textdiff-deleted {
+
+    background: #bbffbb;
+    text-decoration: none;
+}

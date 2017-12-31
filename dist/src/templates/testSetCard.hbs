@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-header test-set-header" role="tab" id="heading{{testSet.htmlId}}">
+        <h5 class="mb-0">
+            <a data-toggle="collapse" href="#{{testSet.htmlID}}" role="button" aria-controls="{{testSet.htmlID}}">
+                {{testSet.id}}
+            </a>
+        </h5>
+        <div>
+            <i class="fa {{#if testSet.pass}}fa-check-circle green{{else}}fa-exclamation-circle red{{/if}} fa-2"></i>
+        </div>
+    </div>
+
+    <div id="{{testSet.htmlID}}" class="collapse" role="tabpanel" data-parent="#testSuiteAccordion_{{testSuiteID}}" aria-labelledby="heading{{testSet.htmlID}}">
+        <div id="testSetAccordian_{{testSet.htmlID}}" role="tablist">
+            {{#each testSet.tests as |t| }}
+                {{> test test=t testSetID=testSet.htmlID }}
+            {{/each}}
+        </div>
+    </div>
+</div>
