@@ -9,11 +9,11 @@ const _jsondiffpatchFormatters = jsondiffpatch.formatters;
 
 export class BusybeeHtmlReporter {
 
-  outputdir: string;
+  outputDir: string;
   projectName: string;
 
   constructor(opts: any) {
-    this.outputdir = opts.outputdir;
+    this.outputDir = opts.outputDir;
     this.projectName = opts.projectName;
   }
 
@@ -51,14 +51,14 @@ export class BusybeeHtmlReporter {
     let html = indexTemplate(data);
 
     try {
-      fs.statSync(this.outputdir);
-      fs.rmdir(this.outputdir);
+      fs.statSync(this.outputDir);
+      fs.rmdir(this.outputDir);
     } catch (e) {
-      fs.mkdirSync(this.outputdir);
+      fs.mkdirSync(this.outputDir);
     }
 
-    fs.writeFileSync(path.join(this.outputdir, 'index.html'), html);
-    fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputdir, 'assets'));
+    fs.writeFileSync(path.join(this.outputDir, 'index.html'), html);
+    fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputDir, 'assets'));
   }
 
   /*

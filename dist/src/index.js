@@ -10,7 +10,7 @@ var _jsondiffpatch = jsondiffpatch.create();
 var _jsondiffpatchFormatters = jsondiffpatch.formatters;
 var BusybeeHtmlReporter = /** @class */ (function () {
     function BusybeeHtmlReporter(opts) {
-        this.outputdir = opts.outputdir;
+        this.outputDir = opts.outputDir;
         this.projectName = opts.projectName;
     }
     BusybeeHtmlReporter.prototype.run = function (testSetResults) {
@@ -39,14 +39,14 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         };
         var html = indexTemplate(data);
         try {
-            fs.statSync(this.outputdir);
-            fs.rmdir(this.outputdir);
+            fs.statSync(this.outputDir);
+            fs.rmdir(this.outputDir);
         }
         catch (e) {
-            fs.mkdirSync(this.outputdir);
+            fs.mkdirSync(this.outputDir);
         }
-        fs.writeFileSync(path.join(this.outputdir, 'index.html'), html);
-        fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputdir, 'assets'));
+        fs.writeFileSync(path.join(this.outputDir, 'index.html'), html);
+        fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputDir, 'assets'));
     };
     /*
       adds metadata helpful for building html
