@@ -94,5 +94,5 @@ var BusybeeHtmlReporter = /** @class */ (function () {
     };
     return BusybeeHtmlReporter;
 }());
-exports.default = BusybeeHtmlReporter;
+exports.BusybeeHtmlReporter = BusybeeHtmlReporter;
 //# sourceMappingURL=index.js.map

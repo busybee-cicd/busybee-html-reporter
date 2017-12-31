@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Publishes Busybee REST Test Suites to html",
   "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
   "dependencies": {
     "fs-extra": "^5.0.0",
     "handlebars": "^4.0.11",
