@@ -3,3 +3,4 @@ node_modules
 .idea/
 busybee.iml
 yarn.lock
+output
