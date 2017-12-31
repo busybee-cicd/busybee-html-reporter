@@ -27,13 +27,13 @@
 </head>
 <body>
 <nav class="navbar bg-faded">
-    <h1 class="navbar-brand mb-0">{{projectName}} IT Report</h1>
+    <h1 class="navbar-brand mb-0">{{#if projectName}}{{projectName}}{{else}}IT Report{{/if}}</h1>
 </nav>
 <div class="container-fluid">
-    {{#each this}}
-        <h1>{{id}}</h1>
-        <div id="testSuiteAccordion_{{htmlID}}" role="tablist">
-            {{#each testSets as |testSet| }}
+    {{#each testSuites as |testSuite|}}
+        <h1>{{testSuite.id}}</h1>
+        <div id="testSuiteAccordion_{{testSuite.htmlID}}" role="tablist">
+            {{#each testSuite.testSets as |testSet| }}
                 {{> testSetCard testSet=testSet testSuiteID=htmlID }}
             {{/each}}
         </div>

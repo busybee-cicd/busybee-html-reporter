@@ -10,9 +10,11 @@ const _jsondiffpatchFormatters = jsondiffpatch.formatters;
 export class BusybeeHtmlReporter {
 
   outputdir: string;
+  projectName: string;
 
   constructor(opts: any) {
     this.outputdir = opts.outputdir;
+    this.projectName = opts.projectName;
   }
 
   run(testSetResults: any) {
@@ -41,7 +43,12 @@ export class BusybeeHtmlReporter {
     let indexTemplate = Handlebars.compile(indexFile);
 
 
-    let html = indexTemplate(this.buildModel(testSetResults));
+    let data = {
+      projectName: this.projectName,
+      testSuites: this.decorateTestSuites(testSetResults)
+    };
+
+    let html = indexTemplate(data);
 
     try {
       fs.statSync(this.outputdir);
@@ -54,7 +61,10 @@ export class BusybeeHtmlReporter {
     fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputdir, 'assets'));
   }
 
-  buildModel(testSuiteResults: any[]): any {
+  /*
+    adds metadata helpful for building html
+   */
+  decorateTestSuites(testSuiteResults: any[]): any {
     // filter out non-REST suites.
 
     let restSuites = _.filter(testSuiteResults, ts => { return ts.type === 'REST'; });

@@ -11,6 +11,7 @@ var _jsondiffpatchFormatters = jsondiffpatch.formatters;
 var BusybeeHtmlReporter = /** @class */ (function () {
     function BusybeeHtmlReporter(opts) {
         this.outputdir = opts.outputdir;
+        this.projectName = opts.projectName;
     }
     BusybeeHtmlReporter.prototype.run = function (testSetResults) {
         // read the index out first...
@@ -32,7 +33,11 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         this.registerHelpers();
         // 4. compile the index template
         var indexTemplate = Handlebars.compile(indexFile);
-        var html = indexTemplate(this.buildModel(testSetResults));
+        var data = {
+            projectName: this.projectName,
+            testSuites: this.decorateTestSuites(testSetResults)
+        };
+        var html = indexTemplate(data);
         try {
             fs.statSync(this.outputdir);
             fs.rmdir(this.outputdir);
@@ -43,7 +48,10 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         fs.writeFileSync(path.join(this.outputdir, 'index.html'), html);
         fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputdir, 'assets'));
     };
-    BusybeeHtmlReporter.prototype.buildModel = function (testSuiteResults) {
+    /*
+      adds metadata helpful for building html
+     */
+    BusybeeHtmlReporter.prototype.decorateTestSuites = function (testSuiteResults) {
         // filter out non-REST suites.
         var restSuites = _.filter(testSuiteResults, function (ts) { return ts.type === 'REST'; });
         restSuites.forEach(function (testSuite) {
