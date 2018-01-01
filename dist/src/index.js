@@ -8,6 +8,13 @@ var randomID = require("random-id");
 var jsondiffpatch = require('jsondiffpatch');
 var _jsondiffpatch = jsondiffpatch.create();
 var _jsondiffpatchFormatters = jsondiffpatch.formatters;
+// remove any fns that may be passed
+_jsondiffpatch.processor.pipes.diff.before('trivial', function (context) {
+    if (typeof context.left === 'function' || typeof context.right === 'function') {
+        context.setResult(undefined);
+        context.exit();
+    }
+});
 var BusybeeHtmlReporter = /** @class */ (function () {
     function BusybeeHtmlReporter(opts) {
         this.outputDir = opts.outputDir;
@@ -21,7 +28,6 @@ var BusybeeHtmlReporter = /** @class */ (function () {
             var name = path.basename(f).replace('.hbs', '');
             templateSrcs[name] = fs.readFileSync(path.join(__dirname, 'templates', f), 'utf8');
         });
-        console.log(JSON.stringify(templateSrcs));
         // 1. save off indexFile while partials are read and registered
         var indexFile = templateSrcs.index;
         delete templateSrcs.index;
@@ -31,22 +37,24 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         });
         // 3. register helpers
         this.registerHelpers();
-        // 4. compile the index template
-        var indexTemplate = Handlebars.compile(indexFile);
-        var data = {
-            projectName: this.projectName,
-            testSuites: this.decorateTestSuites(testSetResults)
-        };
-        var html = indexTemplate(data);
         try {
-            fs.statSync(this.outputDir);
-            fs.rmdir(this.outputDir);
+            // 4. compile the index template
+            var indexTemplate = Handlebars.compile(indexFile);
+            var data = {
+                projectName: this.projectName,
+                testSuites: this.decorateTestSuites(testSetResults)
+            };
+            // 5. generate html
+            var html = indexTemplate(data);
+            // 6. recreate output dir.
+            fs.removeSync(this.outputDir);
+            fs.mkdirSync(this.outputDir);
+            fs.writeFileSync(path.join(this.outputDir, 'index.html'), html);
+            fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputDir, 'assets'));
         }
         catch (e) {
-            fs.mkdirSync(this.outputDir);
+            console.log(e.message);
         }
-        fs.writeFileSync(path.join(this.outputDir, 'index.html'), html);
-        fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputDir, 'assets'));
     };
     /*
       adds metadata helpful for building html

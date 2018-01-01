@@ -7,6 +7,14 @@ const jsondiffpatch = require('jsondiffpatch');
 const _jsondiffpatch = jsondiffpatch.create();
 const _jsondiffpatchFormatters = jsondiffpatch.formatters;
 
+// remove any fns that may be passed
+_jsondiffpatch.processor.pipes.diff.before('trivial', (context) => {
+  if (typeof context.left === 'function' || typeof context.right === 'function' ) {
+    context.setResult(undefined);
+    context.exit();
+  }
+});
+
 export class BusybeeHtmlReporter {
 
   outputDir: string;
@@ -26,7 +34,6 @@ export class BusybeeHtmlReporter {
       templateSrcs[name] = fs.readFileSync(path.join(__dirname, 'templates', f), 'utf8');
     });
 
-    console.log(JSON.stringify(templateSrcs));
     // 1. save off indexFile while partials are read and registered
     let indexFile = templateSrcs.index;
     delete templateSrcs.index;
@@ -39,26 +46,28 @@ export class BusybeeHtmlReporter {
     // 3. register helpers
     this.registerHelpers();
 
-    // 4. compile the index template
-    let indexTemplate = Handlebars.compile(indexFile);
-
-
-    let data = {
-      projectName: this.projectName,
-      testSuites: this.decorateTestSuites(testSetResults)
-    };
-
-    let html = indexTemplate(data);
-
     try {
-      fs.statSync(this.outputDir);
-      fs.rmdir(this.outputDir);
-    } catch (e) {
+      // 4. compile the index template
+      let indexTemplate = Handlebars.compile(indexFile);
+      let data = {
+        projectName: this.projectName,
+        testSuites: this.decorateTestSuites(testSetResults)
+      };
+
+      // 5. generate html
+      let html = indexTemplate(data);
+
+      // 6. recreate output dir.
+      fs.removeSync(this.outputDir);
       fs.mkdirSync(this.outputDir);
+
+      fs.writeFileSync(path.join(this.outputDir, 'index.html'), html);
+      fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputDir, 'assets'));
+    } catch (e) {
+      console.log(e.message);
     }
 
-    fs.writeFileSync(path.join(this.outputDir, 'index.html'), html);
-    fs.copySync(path.join(__dirname, 'assets'), path.join(this.outputDir, 'assets'));
+
   }
 
   /*

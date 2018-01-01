@@ -26,12 +26,12 @@
     <script src="assets/main.js"></script>
 </head>
 <body>
-<nav class="navbar bg-faded">
+<nav class="navbar navbar-dark bg-dark">
     <h1 class="navbar-brand mb-0">{{#if projectName}}{{projectName}}{{else}}IT Report{{/if}}</h1>
 </nav>
 <div class="container-fluid">
     {{#each testSuites as |testSuite|}}
-        <h1>{{testSuite.id}}</h1>
+        <h2>{{testSuite.id}}</h2>
         <div id="testSuiteAccordion_{{testSuite.htmlID}}" role="tablist">
             {{#each testSuite.testSets as |testSet| }}
                 {{> testSetCard testSet=testSet testSuiteID=htmlID }}

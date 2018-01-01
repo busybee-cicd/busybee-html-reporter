@@ -54,6 +54,10 @@
     padding: .25rem .75rem;
 }
 
+.navbar {
+    margin-bottom: 1em;
+}
+
 /*
 jsondiff overwrites (reverse the green and red)
 */
