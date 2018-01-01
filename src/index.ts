@@ -25,7 +25,7 @@ export class BusybeeHtmlReporter {
     this.projectName = opts.projectName;
   }
 
-  run(testSetResults: any) {
+  run(testSuiteResults: any) {
     // read the index out first...
     let filenames = fs.readdirSync(path.join(__dirname, 'templates'));
     let templateSrcs: any = {};
@@ -51,7 +51,7 @@ export class BusybeeHtmlReporter {
       let indexTemplate = Handlebars.compile(indexFile);
       let data = {
         projectName: this.projectName,
-        testSuites: this.decorateTestSuites(testSetResults)
+        testSuites: this.decorateTestSuites(testSuiteResults)
       };
 
       // 5. generate html
@@ -67,7 +67,6 @@ export class BusybeeHtmlReporter {
       console.log(e.message);
     }
 
-
   }
 
   /*
@@ -78,6 +77,7 @@ export class BusybeeHtmlReporter {
 
     let restSuites = _.filter(testSuiteResults, ts => { return ts.type === 'REST'; });
 
+    console.log(restSuites.length);
     restSuites.forEach(testSuite => {
       testSuite.htmlID = testSuite.id.replace(/[^a-zA-Z0-9]/g,'');
       testSuite.testSets.forEach(testSet => {
@@ -88,7 +88,7 @@ export class BusybeeHtmlReporter {
       });
     });
 
-    return testSuiteResults;
+    return restSuites;
   }
 
   registerHelpers() {

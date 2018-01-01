@@ -20,7 +20,7 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         this.outputDir = opts.outputDir;
         this.projectName = opts.projectName;
     }
-    BusybeeHtmlReporter.prototype.run = function (testSetResults) {
+    BusybeeHtmlReporter.prototype.run = function (testSuiteResults) {
         // read the index out first...
         var filenames = fs.readdirSync(path.join(__dirname, 'templates'));
         var templateSrcs = {};
@@ -42,7 +42,7 @@ var BusybeeHtmlReporter = /** @class */ (function () {
             var indexTemplate = Handlebars.compile(indexFile);
             var data = {
                 projectName: this.projectName,
-                testSuites: this.decorateTestSuites(testSetResults)
+                testSuites: this.decorateTestSuites(testSuiteResults)
             };
             // 5. generate html
             var html = indexTemplate(data);
@@ -62,6 +62,7 @@ var BusybeeHtmlReporter = /** @class */ (function () {
     BusybeeHtmlReporter.prototype.decorateTestSuites = function (testSuiteResults) {
         // filter out non-REST suites.
         var restSuites = _.filter(testSuiteResults, function (ts) { return ts.type === 'REST'; });
+        console.log(restSuites.length);
         restSuites.forEach(function (testSuite) {
             testSuite.htmlID = testSuite.id.replace(/[^a-zA-Z0-9]/g, '');
             testSuite.testSets.forEach(function (testSet) {
@@ -71,7 +72,7 @@ var BusybeeHtmlReporter = /** @class */ (function () {
                 });
             });
         });
-        return testSuiteResults;
+        return restSuites;
     };
     BusybeeHtmlReporter.prototype.registerHelpers = function () {
         Handlebars.registerHelper('json', function (context) {

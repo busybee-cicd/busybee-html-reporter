@@ -44,7 +44,7 @@ ava_1.test(function (t) { return __awaiter(_this, void 0, void 0, function () {
     var resultJson, reporter;
     return __generator(this, function (_a) {
         resultJson = require(path.join(process.cwd(), 'test', 'test-suite-result.json'));
-        reporter = new src_1.BusybeeHtmlReporter({ outputdir: path.join(process.cwd(), 'output') });
+        reporter = new src_1.BusybeeHtmlReporter({ outputDir: path.join(process.cwd(), 'output') });
         reporter.run(resultJson);
         t.pass();
         return [2 /*return*/];

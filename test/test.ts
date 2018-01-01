@@ -6,7 +6,7 @@ import {test, TestContext} from "ava";
 
 test(async (t: TestContext) => {
     let resultJson = require(path.join(process.cwd(), 'test', 'test-suite-result.json'));
-    let reporter = new BusybeeHtmlReporter({outputdir: path.join(process.cwd(), 'output')});
+    let reporter = new BusybeeHtmlReporter({outputDir: path.join(process.cwd(), 'output')});
     reporter.run(resultJson);
     t.pass();
 });

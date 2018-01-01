@@ -1,6 +1,6 @@
 {
   "name": "busybee-html-reporter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Publishes Busybee REST Test Suites to html",
   "main": "dist/src/index.js",
   "dependencies": {
@@ -13,11 +13,12 @@
   "devDependencies": {
     "@types/fs-extra": "^5.0.0",
     "@types/handlebars": "^4.0.36",
+    "@types/lodash": "^4.14.91",
     "@types/node": "^8.0.28",
     "ava": "^0.23.0",
+    "npm-watch": "^0.3.0",
     "typescript": "^2.6.2",
-    "watch": "^1.0.2",
-    "npm-watch": "^0.3.0"
+    "watch": "^1.0.2"
   },
   "watch": {
     "build": {
