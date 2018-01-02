@@ -20,7 +20,18 @@
             </a>
         </div>
         <div id="request{{test.htmlID}}" class="collapse">
-            {{jsonPretty test.request}}
+            <div id="requestBtns-{{test.htmlID}}"
+                 style="margin-bottom: 1em"
+                 role="group">
+                <button type="button" class="btn btn-sm btn-secondary active" onclick="showRequest('pretty', '{{test.htmlID}}')">pretty</button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="showRequest('raw', '{{test.htmlID}}')">raw</button>
+            </div>
+            <div id="request-pretty-{{test.htmlID}}">
+                {{jsonPretty test.request}}
+            </div>
+            <div id="request-raw-{{test.htmlID}}" style="display: none;">
+                {{jsonRaw test.request}}
+            </div>
         </div>
 
         <div>

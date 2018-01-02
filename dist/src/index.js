@@ -108,6 +108,10 @@ var BusybeeHtmlReporter = /** @class */ (function () {
             var html = "" + div + script;
             return new Handlebars.SafeString(html);
         });
+        Handlebars.registerHelper('jsonRaw', function (json) {
+            var html = "<pre>" + JSON.stringify(json, null, '\t') + "</pre>";
+            return new Handlebars.SafeString(html);
+        });
         Handlebars.registerHelper('currentTime', function (context) {
             return moment().format();
         });

@@ -171,6 +171,12 @@ export class BusybeeHtmlReporter {
       return new Handlebars.SafeString(html);
     });
 
+    Handlebars.registerHelper('jsonRaw', json => {
+      let html = `<pre>${JSON.stringify(json, null, '\t')}</pre>`;
+
+      return new Handlebars.SafeString(html);
+    });
+
 
     Handlebars.registerHelper('currentTime', context => {
       return moment().format();
