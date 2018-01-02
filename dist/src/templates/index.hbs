@@ -28,6 +28,7 @@
 <body>
 <nav class="navbar navbar-dark bg-dark">
     <h1 class="navbar-brand mb-0">{{#if projectName}}{{projectName}}{{else}}IT Report{{/if}}</h1>
+    <div class="float-right white">Last Generated: {{currentTime }}</div>
 </nav>
 <div class="container-fluid">
     {{#each testSuites as |testSuite|}}

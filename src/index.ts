@@ -3,6 +3,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as _ from 'lodash';
 import * as randomID from 'random-id';
+import * as moment from 'moment';
 const jsondiffpatch = require('jsondiffpatch');
 const _jsondiffpatch = jsondiffpatch.create();
 const _jsondiffpatchFormatters = jsondiffpatch.formatters;
@@ -120,7 +121,7 @@ export class BusybeeHtmlReporter {
               new PrettyJSON.view.Node({
                 el:$('#${expectedId}'),
                 data: ${JSON.stringify(context.expected)}
-              });
+              }).expandAll();
             });
           </script>
         `;
@@ -132,7 +133,7 @@ export class BusybeeHtmlReporter {
           new PrettyJSON.view.Node({
             el:$('#${actualId}'),
             data: ${JSON.stringify(context.actual)}
-          });
+          }).expandAll();
         });
         </script>
       `;
@@ -149,6 +150,30 @@ export class BusybeeHtmlReporter {
       `;
 
       return new Handlebars.SafeString(html);
+    });
+
+    Handlebars.registerHelper('jsonPretty', json => {
+
+      let id = randomID(5,"aA");
+      let div = `<div id="${id}"></div>`;
+      let script =
+        `<script>
+            $(function() {
+              new PrettyJSON.view.Node({
+                el:$('#${id}'),
+                data: ${JSON.stringify(json)}
+              }).expandAll();
+            });
+          </script>`;
+
+      let html = `${div}${script}`;
+
+      return new Handlebars.SafeString(html);
+    });
+
+
+    Handlebars.registerHelper('currentTime', context => {
+      return moment().format();
     });
   }
 

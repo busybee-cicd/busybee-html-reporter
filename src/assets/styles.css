@@ -46,6 +46,10 @@
     color: green;
 }
 
+.white {
+    color: #fff;
+}
+
 /*
  Bootstrap overwrites
 */

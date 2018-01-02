@@ -5,6 +5,7 @@ var fs = require("fs-extra");
 var path = require("path");
 var _ = require("lodash");
 var randomID = require("random-id");
+var moment = require("moment");
 var jsondiffpatch = require('jsondiffpatch');
 var _jsondiffpatch = jsondiffpatch.create();
 var _jsondiffpatchFormatters = jsondiffpatch.formatters;
@@ -94,11 +95,21 @@ var BusybeeHtmlReporter = /** @class */ (function () {
                 leftHtml = "<div class=\"compare-left col-6\">A custom assertion function was used. Unable to displayed 'expected'</div>";
             }
             else {
-                leftHtml += "\n          <script>\n            $(function() {\n              new PrettyJSON.view.Node({\n                el:$('#" + expectedId + "'),\n                data: " + JSON.stringify(context.expected) + "\n              });\n            });\n          </script>\n        ";
+                leftHtml += "\n          <script>\n            $(function() {\n              new PrettyJSON.view.Node({\n                el:$('#" + expectedId + "'),\n                data: " + JSON.stringify(context.expected) + "\n              }).expandAll();\n            });\n          </script>\n        ";
             }
-            rightHtml += "\n        <script>\n        $(function() {\n          new PrettyJSON.view.Node({\n            el:$('#" + actualId + "'),\n            data: " + JSON.stringify(context.actual) + "\n          });\n        });\n        </script>\n      ";
+            rightHtml += "\n        <script>\n        $(function() {\n          new PrettyJSON.view.Node({\n            el:$('#" + actualId + "'),\n            data: " + JSON.stringify(context.actual) + "\n          }).expandAll();\n        });\n        </script>\n      ";
             var html = "\n        <div class=\"row\">\n            <div class=\"col-6\"><h4>expected</h4></div>\n            <div class=\"col-6\"><h4>actual</h4></div>\n        </div>\n        <div class=\"row\">\n            " + leftHtml + "\n            " + rightHtml + "\n        </div>\n      ";
             return new Handlebars.SafeString(html);
+        });
+        Handlebars.registerHelper('jsonPretty', function (json) {
+            var id = randomID(5, "aA");
+            var div = "<div id=\"" + id + "\"></div>";
+            var script = "<script>\n            $(function() {\n              new PrettyJSON.view.Node({\n                el:$('#" + id + "'),\n                data: " + JSON.stringify(json) + "\n              }).expandAll();\n            });\n          </script>";
+            var html = "" + div + script;
+            return new Handlebars.SafeString(html);
+        });
+        Handlebars.registerHelper('currentTime', function (context) {
+            return moment().format();
         });
     };
     return BusybeeHtmlReporter;

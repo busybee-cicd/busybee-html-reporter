@@ -1,15 +1,35 @@
 <div class="card">
     <div class="test-header">
-        <a data-toggle="collapse" href="#{{test.htmlID}}" role="button" aria-controls="{{test.htmlID}}">
-            {{test.id}}
-        </a>
+        {{#if test.pass}}
+            <b>{{test.id}}</b>
+        {{else}}
+            <a data-toggle="collapse" href="#{{test.htmlID}}" role="button"">
+                {{test.id}}
+            </a>
+        {{/if }}
+
         <div>
             <i class="fa {{#if test.pass}}fa-check-circle green{{else}}fa-exclamation-circle red{{/if}} fa-2"></i>
         </div>
     </div>
 
-    <div id="{{test.htmlID}}" class="collapse test-content" role="tabpanel" data-parent="#testSetAccordian_{{testSetID}}" aria-labelledby="heading{{test.htmlID}}">
-        {{#if test}}
+    <div id="{{test.htmlID}}" class="collapse test-content" role="tabpanel" data-parent="#testSetAccordian_{{testSetID}}">
+        <div>
+            <a data-toggle="collapse" href="#request{{test.htmlID}}" role="button">
+                Request
+            </a>
+        </div>
+        <div id="request{{test.htmlID}}" class="collapse">
+            {{jsonPretty test.request}}
+        </div>
+
+        <div>
+            <a data-toggle="collapse" href="#response{{test.htmlID}}" role="button">
+                Reponse
+            </a>
+        </div>
+        <div id="response{{test.htmlID}}" class="collapse">
+
             <nav>
                 <div class="nav nav-tabs" id="nav-tab-{{test.htmlID}}" role="tablist">
                     {{#if test.status}}
@@ -47,8 +67,8 @@
                 {{#if test.status}}
                     {{#unless test.status.pass}}
                         <div class="tab-pane fade" id="nav-status-{{test.htmlID}}" role="tabpanel"">
-                            {{> compare id=test.htmlID responsePart="status" payload=test.status }}
-                        </div>
+                        {{> compare id=test.htmlID responsePart="status" payload=test.status }}
+                    </div>
                     {{/unless}}
                 {{/if}}
 
@@ -70,6 +90,6 @@
                     {{/unless}}
                 {{/if}}
             </div>
-        {{/if}}
+        </div>
     </div>
 </div>
