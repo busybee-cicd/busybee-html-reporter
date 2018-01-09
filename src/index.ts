@@ -99,7 +99,7 @@ export class BusybeeHtmlReporter {
 
     Handlebars.registerHelper('diff', context => {
       if (!context.expected) {
-        context.expected = "A custom assertion function was used. Unable to displayed 'expected'";
+        context.expected = "A custom assertion function was used and no specific error was thrown.";
       }
 
       let delta = _jsondiffpatch.diff(context.expected, context.actual);
@@ -113,7 +113,7 @@ export class BusybeeHtmlReporter {
       let rightHtml = ` <div class="compare-right col-6" id="${actualId}"></div>`;
 
       if (!context.expected) {
-        leftHtml = `<div class="compare-left col-6">A custom assertion function was used. Unable to displayed 'expected'</div>`;
+        leftHtml = `<div class="compare-left col-6">A custom assertion function was used and no specific error was thrown.</div>`;
       } else {
         leftHtml += `
           <script>

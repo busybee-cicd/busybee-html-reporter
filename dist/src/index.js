@@ -81,7 +81,7 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         });
         Handlebars.registerHelper('diff', function (context) {
             if (!context.expected) {
-                context.expected = "A custom assertion function was used. Unable to displayed 'expected'";
+                context.expected = "A custom assertion function was used and no specific error was thrown.";
             }
             var delta = _jsondiffpatch.diff(context.expected, context.actual);
             return new Handlebars.SafeString(_jsondiffpatchFormatters.html.format(delta, context.expected));
@@ -92,7 +92,7 @@ var BusybeeHtmlReporter = /** @class */ (function () {
             var leftHtml = "<div class=\"compare-left col-6\" id=\"" + expectedId + "\"></div>";
             var rightHtml = " <div class=\"compare-right col-6\" id=\"" + actualId + "\"></div>";
             if (!context.expected) {
-                leftHtml = "<div class=\"compare-left col-6\">A custom assertion function was used. Unable to displayed 'expected'</div>";
+                leftHtml = "<div class=\"compare-left col-6\">A custom assertion function was used and no specific error was thrown.</div>";
             }
             else {
                 leftHtml += "\n          <script>\n            $(function() {\n              new PrettyJSON.view.Node({\n                el:$('#" + expectedId + "'),\n                data: " + JSON.stringify(context.expected) + "\n              }).expandAll();\n            });\n          </script>\n        ";
