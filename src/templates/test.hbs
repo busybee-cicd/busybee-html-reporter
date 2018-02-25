@@ -1,12 +1,8 @@
 <div class="card">
     <div class="test-header">
-        {{#if test.pass}}
-            <b>{{test.id}}</b>
-        {{else}}
-            <a data-toggle="collapse" href="#{{test.htmlID}}" role="button"">
-                {{test.id}}
-            </a>
-        {{/if }}
+        <a data-toggle="collapse" href="#{{test.htmlID}}" role="button"">
+        {{test.id}}
+        </a>
 
         <div>
             <i class="fa {{#if test.pass}}fa-check-circle green{{else}}fa-exclamation-circle red{{/if}} fa-2"></i>
@@ -55,61 +51,61 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab-{{test.htmlID}}" role="tablist">
                     {{#if test.status}}
-                        {{#unless test.status.pass}}
-                            <a class="nav-item nav-link"
-                               id="nav-status-tab-{{test.htmlID}}"
-                               data-toggle="tab"
-                               href="#nav-status-{{test.htmlID}}"
-                               role="tab">Status</a>
-                        {{/unless}}
+                        <a class="nav-item nav-link"
+                           id="nav-status-tab-{{test.htmlID}}"
+                           data-toggle="tab"
+                           href="#nav-status-{{test.htmlID}}"
+                           role="tab">Status</a>
                     {{/if}}
 
                     {{#if test.headers}}
-                        {{#unless test.headers.pass}}
-                            <a class="nav-item nav-link"
-                               id="nav-headers-tab-{{test.htmlID}}"
-                               data-toggle="tab"
-                               href="#nav-headers-{{test.htmlID}}"
-                               role="tab">Headers</a>
-                        {{/unless}}
+                        <a class="nav-item nav-link"
+                           id="nav-headers-tab-{{test.htmlID}}"
+                           data-toggle="tab"
+                           href="#nav-headers-{{test.htmlID}}"
+                           role="tab">Headers</a>
                     {{/if}}
 
                     {{#if test.body}}
-                        {{#unless test.body.pass}}
-                            <a class="nav-item nav-link"
-                               id="nav-body-tab-{{test.htmlID}}"
-                               data-toggle="tab"
-                               href="#nav-body-{{test.htmlID}}"
-                               role="tab">Body</a>
-                        {{/unless}}
+                        <a class="nav-item nav-link"
+                           id="nav-body-tab-{{test.htmlID}}"
+                           data-toggle="tab"
+                           href="#nav-body-{{test.htmlID}}"
+                           role="tab">Body</a>
                     {{/if}}
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent-{{test.htmlID}}">
                 {{#if test.status}}
-                    {{#unless test.status.pass}}
-                        <div class="tab-pane fade" id="nav-status-{{test.htmlID}}" role="tabpanel"">
-                        {{> compare id=test.htmlID responsePart="status" payload=test.status }}
+                    <div class="tab-pane fade" id="nav-status-{{test.htmlID}}" role="tabpanel"">
+                        {{#if test.status.pass}}
+                            {{ test.status.actual }}
+                        {{else}}
+                            {{> compare id=test.htmlID responsePart="status" payload=test.status }}
+                        {{/if}}
                     </div>
-                    {{/unless}}
                 {{/if}}
 
 
                 {{#if test.headers}}
-                    {{#unless test.headers.pass}}
-                        <div class="tab-pane fade" id="nav-headers-{{test.htmlID}}" role="tabpanel">
+                    <div class="tab-pane fade" id="nav-headers-{{test.htmlID}}" role="tabpanel">
+                        {{#if test.headers.pass}}
+                            {{jsonPretty test.headers.actual }}
+                        {{else}}
                             {{> compare id=test.htmlID responsePart="headers" payload=test.headers }}
-                        </div>
-                    {{/unless}}
+                        {{/if}}
+                    </div>
                 {{/if}}
 
 
                 {{#if body}}
-                    {{#unless test.body.pass}}
-                        <div class="tab-pane fade" id="nav-body-{{test.htmlID}}" role="tabpanel">
+                    <div class="tab-pane fade" id="nav-body-{{test.htmlID}}" role="tabpanel">
+                        {{#if test.body}}
+                            {{jsonPretty test.body.actual }}
+                        {{else}}
                             {{> compare id=test.htmlID responsePart="body" payload=test.body }}
-                        </div>
-                    {{/unless}}
+                        {{/if}}
+                    </div>
                 {{/if}}
             </div>
         </div>
