@@ -1,6 +1,6 @@
 {
   "name": "busybee-html-reporter",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Publishes Busybee REST Test Suites to html",
   "main": "dist/src/index.js",
   "dependencies": {
