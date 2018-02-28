@@ -27,6 +27,7 @@ export class BusybeeHtmlReporter {
   }
 
   run(testSuiteResults: any) {
+    console.log(JSON.stringify(testSuiteResults))
     // read the index out first...
     let filenames = fs.readdirSync(path.join(__dirname, 'templates'));
     let templateSrcs: any = {};
@@ -97,7 +98,8 @@ export class BusybeeHtmlReporter {
       return JSON.stringify(context, null, '\t');
     });
 
-    Handlebars.registerHelper('diff', context => {
+    Handlebars.registerHelper('diff', (options) => {
+      const context = options.hash;
       if (!context.expected) {
         context.expected = "A custom assertion function was used and no specific error was thrown.";
       }
@@ -106,7 +108,8 @@ export class BusybeeHtmlReporter {
       return new Handlebars.SafeString(_jsondiffpatchFormatters.html.format(delta, context.expected));
     });
 
-    Handlebars.registerHelper('sideBySide', context => {
+    Handlebars.registerHelper('sideBySide', (options) => {
+      const context = options.hash;
       let expectedId = randomID(5,"aA");
       let actualId = randomID(5,"aA");
       let leftHtml = `<div class="compare-left col-6" id="${expectedId}"></div>`;
@@ -117,24 +120,50 @@ export class BusybeeHtmlReporter {
       } else {
         leftHtml += `
           <script>
-            $(function() {
-              new PrettyJSON.view.Node({
-                el:$('#${expectedId}'),
-                data: ${JSON.stringify(context.expected)}
-              }).expandAll();
-            });
+            
+            window['createSideBySideLeft${context.responsePart}${context.id}'] = 
+            function() {
+                console.log('createSideBySideLeft')
+              var node;
+              try {
+                node = new PrettyJSON.view.Node({
+                  el:$('#${expectedId}'),
+                  data: ${JSON.stringify(context.expected)}
+                }).expandAll();
+              } catch (e) {
+                $('#${expectedId}').text(JSON.stringify(context.expected));
+              }
+              
+              window['removeSideBySideLeft${context.responsePart}${context.id}'] = function() {
+                $('#${expectedId}').empty();
+                node = null;
+              }
+            };
+           
           </script>
         `;
       }
 
       rightHtml += `
         <script>
-        $(function() {
-          new PrettyJSON.view.Node({
-            el:$('#${actualId}'),
-            data: ${JSON.stringify(context.actual)}
-          }).expandAll();
-        });
+          window['createSideBySideRight${context.responsePart}${context.id}'] =
+          function() {
+          console.log('createSideBySideRight')
+              var node;
+              try {
+                  node = new PrettyJSON.view.Node({
+                    el:$('#${actualId}'),
+                    data: ${JSON.stringify(context.actual)}
+                  }).expandAll();
+              } catch (e) {
+                  $('#${actualId}').text(JSON.stringify(context.actual));
+              }
+              
+              window['removeSideBySideRight${context.responsePart}${context.id}'] = function() {
+                $('#${expectedId}').empty();
+                node = null;
+              }
+          };
         </script>
       `;
 
@@ -153,7 +182,6 @@ export class BusybeeHtmlReporter {
     });
 
     Handlebars.registerHelper('jsonPretty', json => {
-
       let id = randomID(5,"aA");
       let div = `<div id="${id}"></div>`;
       let script =

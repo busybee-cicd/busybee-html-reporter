@@ -22,6 +22,7 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         this.projectName = opts.projectName;
     }
     BusybeeHtmlReporter.prototype.run = function (testSuiteResults) {
+        console.log(JSON.stringify(testSuiteResults));
         // read the index out first...
         var filenames = fs.readdirSync(path.join(__dirname, 'templates'));
         var templateSrcs = {};
@@ -79,14 +80,16 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         Handlebars.registerHelper('json', function (context) {
             return JSON.stringify(context, null, '\t');
         });
-        Handlebars.registerHelper('diff', function (context) {
+        Handlebars.registerHelper('diff', function (options) {
+            var context = options.hash;
             if (!context.expected) {
                 context.expected = "A custom assertion function was used and no specific error was thrown.";
             }
             var delta = _jsondiffpatch.diff(context.expected, context.actual);
             return new Handlebars.SafeString(_jsondiffpatchFormatters.html.format(delta, context.expected));
         });
-        Handlebars.registerHelper('sideBySide', function (context) {
+        Handlebars.registerHelper('sideBySide', function (options) {
+            var context = options.hash;
             var expectedId = randomID(5, "aA");
             var actualId = randomID(5, "aA");
             var leftHtml = "<div class=\"compare-left col-6\" id=\"" + expectedId + "\"></div>";
@@ -95,9 +98,9 @@ var BusybeeHtmlReporter = /** @class */ (function () {
                 leftHtml = "<div class=\"compare-left col-6\">A custom assertion function was used and no specific error was thrown.</div>";
             }
             else {
-                leftHtml += "\n          <script>\n            $(function() {\n              new PrettyJSON.view.Node({\n                el:$('#" + expectedId + "'),\n                data: " + JSON.stringify(context.expected) + "\n              }).expandAll();\n            });\n          </script>\n        ";
+                leftHtml += "\n          <script>\n            \n            window['createSideBySideLeft" + context.responsePart + context.id + "'] = \n            function() {\n                console.log('createSideBySideLeft')\n              var node;\n              try {\n                node = new PrettyJSON.view.Node({\n                  el:$('#" + expectedId + "'),\n                  data: " + JSON.stringify(context.expected) + "\n                }).expandAll();\n              } catch (e) {\n                $('#" + expectedId + "').text(JSON.stringify(context.expected));\n              }\n              \n              window['removeSideBySideLeft" + context.responsePart + context.id + "'] = function() {\n                $('#" + expectedId + "').empty();\n                node = null;\n              }\n            };\n           \n          </script>\n        ";
             }
-            rightHtml += "\n        <script>\n        $(function() {\n          new PrettyJSON.view.Node({\n            el:$('#" + actualId + "'),\n            data: " + JSON.stringify(context.actual) + "\n          }).expandAll();\n        });\n        </script>\n      ";
+            rightHtml += "\n        <script>\n          window['createSideBySideRight" + context.responsePart + context.id + "'] =\n          function() {\n          console.log('createSideBySideRight')\n              var node;\n              try {\n                  node = new PrettyJSON.view.Node({\n                    el:$('#" + actualId + "'),\n                    data: " + JSON.stringify(context.actual) + "\n                  }).expandAll();\n              } catch (e) {\n                  $('#" + actualId + "').text(JSON.stringify(context.actual));\n              }\n              \n              window['removeSideBySideRight" + context.responsePart + context.id + "'] = function() {\n                $('#" + expectedId + "').empty();\n                node = null;\n              }\n          };\n        </script>\n      ";
             var html = "\n        <div class=\"row\">\n            <div class=\"col-6\"><h4>expected</h4></div>\n            <div class=\"col-6\"><h4>actual</h4></div>\n        </div>\n        <div class=\"row\">\n            " + leftHtml + "\n            " + rightHtml + "\n        </div>\n      ";
             return new Handlebars.SafeString(html);
         });
