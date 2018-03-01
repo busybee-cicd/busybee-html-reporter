@@ -27,7 +27,6 @@ export class BusybeeHtmlReporter {
   }
 
   run(testSuiteResults: any) {
-    console.log(JSON.stringify(testSuiteResults))
     // read the index out first...
     let filenames = fs.readdirSync(path.join(__dirname, 'templates'));
     let templateSrcs: any = {};

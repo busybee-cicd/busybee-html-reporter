@@ -22,7 +22,6 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         this.projectName = opts.projectName;
     }
     BusybeeHtmlReporter.prototype.run = function (testSuiteResults) {
-        console.log(JSON.stringify(testSuiteResults));
         // read the index out first...
         var filenames = fs.readdirSync(path.join(__dirname, 'templates'));
         var templateSrcs = {};
