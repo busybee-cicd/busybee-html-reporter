@@ -122,7 +122,6 @@ export class BusybeeHtmlReporter {
             
             window['createSideBySideLeft${context.responsePart}${context.id}'] = 
             function() {
-                console.log('createSideBySideLeft')
               var node;
               try {
                 node = new PrettyJSON.view.Node({
@@ -147,7 +146,6 @@ export class BusybeeHtmlReporter {
         <script>
           window['createSideBySideRight${context.responsePart}${context.id}'] =
           function() {
-          console.log('createSideBySideRight')
               var node;
               try {
                   node = new PrettyJSON.view.Node({

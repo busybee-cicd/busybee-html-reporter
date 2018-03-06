@@ -1,7 +1,6 @@
 var expandedTest;
 
 function expandTest(id) {
-  console.log('expandTest');
   // tear down the previously expanded test;
   if (expandedTest) {
     closeTest(expandedTest);
