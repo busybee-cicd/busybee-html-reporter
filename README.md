@@ -16,7 +16,8 @@ const BusybeeHtmlReporter = require('busybee-html-reporter').BusybeeHtmlReporter
 reporters: [
     new BusybeeHtmlReporter({
       projectName: '<YOUR_PROJECT_NAME>',
-      outputDir: path.join(process.cwd(), 'busybee-html-output')
+      outputDir: path.join(process.cwd(), 'busybee-html-output'),
+      skipInLocalMode: false
     })
 ]
 ```
