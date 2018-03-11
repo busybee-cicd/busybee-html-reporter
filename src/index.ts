@@ -20,10 +20,12 @@ export class BusybeeHtmlReporter {
 
   outputDir: string;
   projectName: string;
+  skipInLocalMode: boolean;
 
   constructor(opts: any) {
     this.outputDir = opts.outputDir;
     this.projectName = opts.projectName;
+    this.skipInLocalMode = opts.skipInLocalMode;
   }
 
   run(testSuiteResults: any) {
