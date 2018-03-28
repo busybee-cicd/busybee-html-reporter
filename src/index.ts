@@ -82,11 +82,11 @@ export class BusybeeHtmlReporter {
 
     console.log(restSuites.length);
     restSuites.forEach(testSuite => {
-      testSuite.htmlID = testSuite.id.replace(/[^a-zA-Z0-9]/g,'');
+      testSuite.htmlID = `${randomID(5, "aA")}`;
       testSuite.testSets.forEach(testSet => {
-        testSet.htmlID = testSet.id.replace(/[^a-zA-Z0-9]/g,'');
+        testSet.htmlID = `${randomID(5, "aA")}`;
         testSet.tests.forEach(test => {
-          test.htmlID = `${testSet.htmlID}${test.id.replace(/[^a-zA-Z0-9]/g,'')}`;
+          test.htmlID = `${testSet.htmlID}${randomID(10, "aA")}`;
         });
       });
     });
@@ -121,8 +121,8 @@ export class BusybeeHtmlReporter {
       } else {
         leftHtml += `
           <script>
-            
-            window['createSideBySideLeft${context.responsePart}${context.id}'] = 
+
+            window['createSideBySideLeft${context.responsePart}${context.id}'] =
             function() {
               var node;
               try {
@@ -133,13 +133,13 @@ export class BusybeeHtmlReporter {
               } catch (e) {
                 $('#${expectedId}').text(JSON.stringify(context.expected));
               }
-              
+
               window['removeSideBySideLeft${context.responsePart}${context.id}'] = function() {
                 $('#${expectedId}').empty();
                 node = null;
               }
             };
-           
+
           </script>
         `;
       }
@@ -157,7 +157,7 @@ export class BusybeeHtmlReporter {
               } catch (e) {
                   $('#${actualId}').text(JSON.stringify(context.actual));
               }
-              
+
               window['removeSideBySideRight${context.responsePart}${context.id}'] = function() {
                 $('#${expectedId}').empty();
                 node = null;

@@ -66,11 +66,11 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         var restSuites = _.filter(testSuiteResults, function (ts) { return ts.type === 'REST'; });
         console.log(restSuites.length);
         restSuites.forEach(function (testSuite) {
-            testSuite.htmlID = testSuite.id.replace(/[^a-zA-Z0-9]/g, '');
+            testSuite.htmlID = "" + randomID(5, "aA");
             testSuite.testSets.forEach(function (testSet) {
-                testSet.htmlID = testSet.id.replace(/[^a-zA-Z0-9]/g, '');
+                testSet.htmlID = "" + randomID(5, "aA");
                 testSet.tests.forEach(function (test) {
-                    test.htmlID = "" + testSet.htmlID + test.id.replace(/[^a-zA-Z0-9]/g, '');
+                    test.htmlID = "" + testSet.htmlID + randomID(10, "aA");
                 });
             });
         });
@@ -98,9 +98,9 @@ var BusybeeHtmlReporter = /** @class */ (function () {
                 leftHtml = "<div class=\"compare-left col-6\">A custom assertion function was used and no specific error was thrown.</div>";
             }
             else {
-                leftHtml += "\n          <script>\n            \n            window['createSideBySideLeft" + context.responsePart + context.id + "'] = \n            function() {\n              var node;\n              try {\n                node = new PrettyJSON.view.Node({\n                  el:$('#" + expectedId + "'),\n                  data: " + JSON.stringify(context.expected) + "\n                }).expandAll();\n              } catch (e) {\n                $('#" + expectedId + "').text(JSON.stringify(context.expected));\n              }\n              \n              window['removeSideBySideLeft" + context.responsePart + context.id + "'] = function() {\n                $('#" + expectedId + "').empty();\n                node = null;\n              }\n            };\n           \n          </script>\n        ";
+                leftHtml += "\n          <script>\n\n            window['createSideBySideLeft" + context.responsePart + context.id + "'] =\n            function() {\n              var node;\n              try {\n                node = new PrettyJSON.view.Node({\n                  el:$('#" + expectedId + "'),\n                  data: " + JSON.stringify(context.expected) + "\n                }).expandAll();\n              } catch (e) {\n                $('#" + expectedId + "').text(JSON.stringify(context.expected));\n              }\n\n              window['removeSideBySideLeft" + context.responsePart + context.id + "'] = function() {\n                $('#" + expectedId + "').empty();\n                node = null;\n              }\n            };\n\n          </script>\n        ";
             }
-            rightHtml += "\n        <script>\n          window['createSideBySideRight" + context.responsePart + context.id + "'] =\n          function() {\n              var node;\n              try {\n                  node = new PrettyJSON.view.Node({\n                    el:$('#" + actualId + "'),\n                    data: " + JSON.stringify(context.actual) + "\n                  }).expandAll();\n              } catch (e) {\n                  $('#" + actualId + "').text(JSON.stringify(context.actual));\n              }\n              \n              window['removeSideBySideRight" + context.responsePart + context.id + "'] = function() {\n                $('#" + expectedId + "').empty();\n                node = null;\n              }\n          };\n        </script>\n      ";
+            rightHtml += "\n        <script>\n          window['createSideBySideRight" + context.responsePart + context.id + "'] =\n          function() {\n              var node;\n              try {\n                  node = new PrettyJSON.view.Node({\n                    el:$('#" + actualId + "'),\n                    data: " + JSON.stringify(context.actual) + "\n                  }).expandAll();\n              } catch (e) {\n                  $('#" + actualId + "').text(JSON.stringify(context.actual));\n              }\n\n              window['removeSideBySideRight" + context.responsePart + context.id + "'] = function() {\n                $('#" + expectedId + "').empty();\n                node = null;\n              }\n          };\n        </script>\n      ";
             var html = "\n        <div class=\"row\">\n            <div class=\"col-6\"><h4>expected</h4></div>\n            <div class=\"col-6\"><h4>actual</h4></div>\n        </div>\n        <div class=\"row\">\n            " + leftHtml + "\n            " + rightHtml + "\n        </div>\n      ";
             return new Handlebars.SafeString(html);
         });
