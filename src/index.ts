@@ -19,7 +19,7 @@ export default class BusybeeHtmlReporter {
               <html lang="en">
               <head>
                 <meta charset="utf-8">
-                <title> ${'Busybee Results'} </title>
+                <title>${this.projectName}</title>
               </head>
               <body>
                 <div class="content">
