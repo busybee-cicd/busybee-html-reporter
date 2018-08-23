@@ -5,13 +5,12 @@
     "target": "es5",
     "sourceMap": true,
     "inlineSources": true,
-    "module": "ES2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "types" : ["node"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "jsx": "react"
   },
-  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "rollup.config.js"]
 }

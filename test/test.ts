@@ -1,6 +1,6 @@
 import * as path from 'path';
-import {BusybeeHtmlReporter} from '../src';
-import {test, TestContext} from "ava";
+import * as BusybeeHtmlReporter from '../dist/index.js';
+import {test, TestContext} from 'ava-ts';
 
 //let testFilesDir = path.join(process.cwd(), 'test/config/busybeeTests');
 
