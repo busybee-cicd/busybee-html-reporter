@@ -2859,7 +2859,7 @@ var BusybeeHtmlReporter = /** @class */ (function () {
         if (this.skipInLocalMode) {
             return;
         }
-        var page = "<!DOCTYPE html>\n              <html lang=\"en\">\n              <head>\n                <meta charset=\"utf-8\">\n                <title> " + 'Busybee Results' + " </title>\n              </head>\n              <body>\n                <div class=\"content\">\n                   <div id=\"app\" class=\"wrap-inner\">\n                   </div>\n                </div>\n                <script>\n                  window.busybeeResults = " + JSON.stringify(testResults) + "\n                </script>\n                <script src=\"assets/bundle.js\"></script>\n              </body>\n              </html>\n              ";
+        var page = "<!DOCTYPE html>\n              <html lang=\"en\">\n              <head>\n                <meta charset=\"utf-8\">\n                <title>" + this.projectName + "</title>\n              </head>\n              <body>\n                <div class=\"content\">\n                   <div id=\"app\" class=\"wrap-inner\">\n                   </div>\n                </div>\n                <script>\n                  window.busybeeResults = " + JSON.stringify(testResults) + "\n                </script>\n                <script src=\"assets/bundle.js\"></script>\n              </body>\n              </html>\n              ";
         // 6. recreate output dir.
         lib_1(this.outputDir);
         lib_2(this.outputDir);
