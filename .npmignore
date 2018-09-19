@@ -5,3 +5,4 @@ test.sh
 tsconfig.*
 output/
 .rpt2_cache
+.nvmrc
