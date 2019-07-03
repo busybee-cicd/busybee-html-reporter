@@ -1,1 +1,272 @@
-{"data":[{"id":"REST TestSuite","pass":true,"testSets":[{"id":"ts1","pass":true,"tests":[{"body":{"actual":{"arr":[1,2,3],"hello":"world","object":{"1":"2","arr":[1,3,4],"nested":{"arr":[1,2,3,4],"im":"nested"}}},"pass":true},"id":"body assertion","pass":true,"request":{"json":true,"method":"GET","resolveWithFullResponse":true,"simple":false,"timeout":30000,"url":"http://localhost:7777/body-assertion"}},{"id":"status assertion","pass":true,"request":{"json":true,"method":"GET","resolveWithFullResponse":true,"simple":false,"timeout":30000,"url":"http://localhost:7777/status-assertion"},"status":{"actual":404,"pass":true}}]},{"id":"ts1","pass":true,"tests":[{"body":{"actual":{"arr":[1,2,3],"hello":"world","object":{"1":"2","arr":[1,3,4],"nested":{"arr":[1,2,3,4],"im":"nested"}}},"pass":true},"id":"body assertion","pass":true,"request":{"json":true,"method":"GET","resolveWithFullResponse":true,"simple":false,"timeout":30000,"url":"http://localhost:7778/body-assertion"}},{"id":"status assertion","pass":true,"request":{"json":true,"method":"GET","resolveWithFullResponse":true,"simple":false,"timeout":30000,"url":"http://localhost:7778/status-assertion"},"status":{"actual":404,"pass":true}}]},{"id":"ts1","pass":true,"tests":[{"body":{"actual":{"arr":[1,2,3],"hello":"world","object":{"1":"2","arr":[1,3,4],"nested":{"arr":[1,2,3,4],"im":"nested"}}},"pass":true},"id":"body assertion","pass":true,"request":{"json":true,"method":"GET","resolveWithFullResponse":true,"simple":false,"timeout":30000,"url":"http://localhost:7777/body-assertion"}},{"id":"status assertion","pass":true,"request":{"json":true,"method":"GET","resolveWithFullResponse":true,"simple":false,"timeout":30000,"url":"http://localhost:7777/status-assertion"},"status":{"actual":404,"pass":true}}]},{"id":"ts1","pass":true,"tests":[{"body":{"actual":{"arr":[1,2,3],"hello":"world","object":{"1":"2","arr":[1,3,4],"nested":{"arr":[1,2,3,4],"im":"nested"}}},"pass":true},"id":"body assertion","pass":true,"request":{"json":true,"method":"GET","resolveWithFullResponse":true,"simple":false,"timeout":30000,"url":"http://localhost:7778/body-assertion"}},{"id":"status assertion","pass":true,"request":{"json":true,"method":"GET","resolveWithFullResponse":true,"simple":false,"timeout":30000,"url":"http://localhost:7778/status-assertion"},"status":{"actual":404,"pass":true}}]}],"type":"REST"},{"id":"USER_PROVIDED TestSuite","pass":false,"testSets":[{"error":{"message":"Unexpected token F in JSON at position 0","stack":"SyntaxError: Unexpected token F in JSON at position 0\n    at JSON.parse (<anonymous>)\n    at ParsedTestSetConfig.assertion (/Users/212589146/dev/busybee/busybee/test/IT/fixtures/mixed-test-suite-type/config.js:94:33)\n    at GenericSuiteManager.<anonymous> (/Users/212589146/dev/busybee/busybee/src/managers/GenericSuiteManager.ts:90:41)\n    at step (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:32:23)\n    at Object.next (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:13:53)\n    at fulfilled (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:4:58)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"},"id":"ts1","pass":false},{"error":{"message":"Unexpected token P in JSON at position 0","stack":"SyntaxError: Unexpected token P in JSON at position 0\n    at JSON.parse (<anonymous>)\n    at ParsedTestSetConfig.assertion (/Users/212589146/dev/busybee/busybee/test/IT/fixtures/mixed-test-suite-type/config.js:117:33)\n    at GenericSuiteManager.<anonymous> (/Users/212589146/dev/busybee/busybee/src/managers/GenericSuiteManager.ts:90:41)\n    at step (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:32:23)\n    at Object.next (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:13:53)\n    at fulfilled (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:4:58)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"},"id":"ts1","pass":false}],"type":"USER_PROVIDED"}],"runId":"56505ab0-a555-11e8-b47e-b5b0f8fa33c8","runTimestamp":1534864657371}
+{
+    "runId": "8fdd0750-007d-11e9-a7fa-bb9284d9ad29",
+    "runTimestamp": 1544887489604,
+    "data": [
+        {
+            "testSets": [
+                {
+                    "pass": true,
+                    "id": "ts1",
+                    "tests": [
+                        {
+                            "pass": true,
+                            "id": "body assertion",
+                            "body": {
+                                "pass": true,
+                                "actual": {
+                                    "hello": "world",
+                                    "object": {
+                                        "1": "2",
+                                        "arr": [
+                                            1,
+                                            3,
+                                            4
+                                        ],
+                                        "nested": {
+                                            "im": "nested",
+                                            "arr": [
+                                                1,
+                                                2,
+                                                3,
+                                                4
+                                            ]
+                                        }
+                                    },
+                                    "arr": [
+                                        1,
+                                        2,
+                                        3
+                                    ]
+                                }
+                            },
+                            "request": {
+                                "json": true,
+                                "resolveWithFullResponse": true,
+                                "simple": false,
+                                "method": "GET",
+                                "url": "http://localhost:7777/body-assertion",
+                                "timeout": 30000
+                            }
+                        },
+                        {
+                            "pass": true,
+                            "id": "status assertion",
+                            "status": {
+                                "pass": true,
+                                "actual": 404
+                            },
+                            "request": {
+                                "json": true,
+                                "resolveWithFullResponse": true,
+                                "simple": false,
+                                "method": "GET",
+                                "url": "http://localhost:7777/status-assertion",
+                                "timeout": 30000
+                            }
+                        }
+                    ]
+                },
+                {
+                    "pass": false,
+                    "id": "ts2",
+                    "tests": [
+                        {
+                            "pass": false,
+                            "id": "body fn assertion error",
+                            "body": {
+                                "pass": false,
+                                "actual": {
+                                    "hello": "world",
+                                    "object": {
+                                        "1": "2",
+                                        "arr": [
+                                            1,
+                                            3,
+                                            4
+                                        ],
+                                        "nested": {
+                                            "im": "nested",
+                                            "arr": [
+                                                1,
+                                                2,
+                                                3,
+                                                4
+                                            ]
+                                        }
+                                    },
+                                    "arr": [
+                                        1,
+                                        2,
+                                        3
+                                    ]
+                                },
+                                "error": {
+                                    "type": "custom validation function",
+                                    "error": "you should see this error!",
+                                    "stack": "Error: you should see this error!\n    at RESTTestExpect.body (/Users/212589146/dev/busybee/busybee/test/IT/fixtures/mixed-test-suite-type/REST/test/ts2/body-assertion.js:15:17)\n    at RESTSuiteManager.validateTestResult (/Users/212589146/dev/busybee/busybee/src/managers/RESTSuiteManager.ts:404:40)\n    at RESTSuiteManager.<anonymous> (/Users/212589146/dev/busybee/busybee/src/managers/RESTSuiteManager.ts:164:16)\n    at step (/Users/212589146/dev/busybee/busybee/dist/src/managers/RESTSuiteManager.js:32:23)\n    at Object.next (/Users/212589146/dev/busybee/busybee/dist/src/managers/RESTSuiteManager.js:13:53)\n    at fulfilled (/Users/212589146/dev/busybee/busybee/dist/src/managers/RESTSuiteManager.js:4:58)\n    at <anonymous>"
+                                }
+                            },
+                            "request": {
+                                "json": true,
+                                "resolveWithFullResponse": true,
+                                "simple": false,
+                                "method": "GET",
+                                "url": "http://localhost:7778/body-assertion",
+                                "timeout": 30000
+                            }
+                        }
+                    ]
+                },
+                {
+                    "pass": true,
+                    "id": "ts1",
+                    "tests": [
+                        {
+                            "pass": true,
+                            "id": "body assertion",
+                            "body": {
+                                "pass": true,
+                                "actual": {
+                                    "hello": "world",
+                                    "object": {
+                                        "1": "2",
+                                        "arr": [
+                                            1,
+                                            3,
+                                            4
+                                        ],
+                                        "nested": {
+                                            "im": "nested",
+                                            "arr": [
+                                                1,
+                                                2,
+                                                3,
+                                                4
+                                            ]
+                                        }
+                                    },
+                                    "arr": [
+                                        1,
+                                        2,
+                                        3
+                                    ]
+                                }
+                            },
+                            "request": {
+                                "json": true,
+                                "resolveWithFullResponse": true,
+                                "simple": false,
+                                "method": "GET",
+                                "url": "http://localhost:7777/body-assertion",
+                                "timeout": 30000
+                            }
+                        },
+                        {
+                            "pass": true,
+                            "id": "status assertion",
+                            "status": {
+                                "pass": true,
+                                "actual": 404
+                            },
+                            "request": {
+                                "json": true,
+                                "resolveWithFullResponse": true,
+                                "simple": false,
+                                "method": "GET",
+                                "url": "http://localhost:7777/status-assertion",
+                                "timeout": 30000
+                            }
+                        }
+                    ]
+                },
+                {
+                    "pass": false,
+                    "id": "ts2",
+                    "tests": [
+                        {
+                            "pass": false,
+                            "id": "body fn assertion error",
+                            "body": {
+                                "pass": false,
+                                "actual": {
+                                    "hello": "world",
+                                    "object": {
+                                        "1": "2",
+                                        "arr": [
+                                            1,
+                                            3,
+                                            4
+                                        ],
+                                        "nested": {
+                                            "im": "nested",
+                                            "arr": [
+                                                1,
+                                                2,
+                                                3,
+                                                4
+                                            ]
+                                        }
+                                    },
+                                    "arr": [
+                                        1,
+                                        2,
+                                        3
+                                    ]
+                                },
+                                "error": {
+                                    "type": "custom validation function",
+                                    "error": "you should see this error!",
+                                    "stack": "Error: you should see this error!\n    at RESTTestExpect.body (/Users/212589146/dev/busybee/busybee/test/IT/fixtures/mixed-test-suite-type/REST/test/ts2/body-assertion.js:15:17)\n    at RESTSuiteManager.validateTestResult (/Users/212589146/dev/busybee/busybee/src/managers/RESTSuiteManager.ts:404:40)\n    at RESTSuiteManager.<anonymous> (/Users/212589146/dev/busybee/busybee/src/managers/RESTSuiteManager.ts:164:16)\n    at step (/Users/212589146/dev/busybee/busybee/dist/src/managers/RESTSuiteManager.js:32:23)\n    at Object.next (/Users/212589146/dev/busybee/busybee/dist/src/managers/RESTSuiteManager.js:13:53)\n    at fulfilled (/Users/212589146/dev/busybee/busybee/dist/src/managers/RESTSuiteManager.js:4:58)\n    at <anonymous>"
+                                }
+                            },
+                            "request": {
+                                "json": true,
+                                "resolveWithFullResponse": true,
+                                "simple": false,
+                                "method": "GET",
+                                "url": "http://localhost:7778/body-assertion",
+                                "timeout": 30000
+                            }
+                        }
+                    ]
+                }
+            ],
+            "pass": false,
+            "summary": {
+                "numberOfTestSets": 4,
+                "numberOfTests": 6,
+                "numberOfPassedTests": 4
+            },
+            "id": "REST TestSuite",
+            "type": "REST"
+        },
+        {
+            "testSets": [
+                {
+                    "id": "ts1",
+                    "pass": false,
+                    "error": {
+                        "stack": "SyntaxError: Unexpected token F in JSON at position 0\n    at JSON.parse (<anonymous>)\n    at ParsedTestSetConfig.assertion (/Users/212589146/dev/busybee/busybee/test/IT/fixtures/mixed-test-suite-type/config.js:94:33)\n    at GenericSuiteManager.<anonymous> (/Users/212589146/dev/busybee/busybee/src/managers/GenericSuiteManager.ts:90:41)\n    at step (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:32:23)\n    at Object.next (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:13:53)\n    at fulfilled (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:4:58)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)",
+                        "message": "Unexpected token F in JSON at position 0"
+                    }
+                },
+                {
+                    "id": "ts1",
+                    "pass": false,
+                    "error": {
+                        "stack": "SyntaxError: Unexpected token P in JSON at position 0\n    at JSON.parse (<anonymous>)\n    at ParsedTestSetConfig.assertion (/Users/212589146/dev/busybee/busybee/test/IT/fixtures/mixed-test-suite-type/config.js:117:33)\n    at GenericSuiteManager.<anonymous> (/Users/212589146/dev/busybee/busybee/src/managers/GenericSuiteManager.ts:90:41)\n    at step (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:32:23)\n    at Object.next (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:13:53)\n    at fulfilled (/Users/212589146/dev/busybee/busybee/dist/src/managers/GenericSuiteManager.js:4:58)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)",
+                        "message": "Unexpected token P in JSON at position 0"
+                    }
+                }
+            ],
+            "pass": false,
+            "summary": {
+                "numberOfTestSets": 2,
+                "numberOfTests": 0,
+                "numberOfPassedTests": 0
+            },
+            "id": "USER_PROVIDED TestSuite",
+            "type": "USER_PROVIDED"
+        }
+    ]
+}
