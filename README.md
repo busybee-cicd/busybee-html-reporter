@@ -22,3 +22,5 @@ reporters: [
 ]
 ```
 
+## License
+MIT © [stowns](https://github.com/stowns)
