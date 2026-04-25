@@ -6,3 +6,4 @@ yarn.lock
 output
 .rpt2_cache/
 .nvmrc
+dist

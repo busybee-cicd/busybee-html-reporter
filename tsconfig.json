@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "lib": ["es6", "DOM"],
+    "lib": ["ES2020", "DOM"],
+    "rootDir": "./src",
     "outDir": "./dist",
-    "target": "es5",
+    "target": "ES2020",
     "sourceMap": true,
     "inlineSources": true,
-    "module": "ES2015",
+    "module": "ESNext",
     "moduleResolution": "node",
-    "types" : ["node"],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "ignoreDeprecations": "6.0",
+    "types": ["node"],
+    "resolveJsonModule": true,
     "jsx": "react"
   },
   "include": ["src/**/*"],

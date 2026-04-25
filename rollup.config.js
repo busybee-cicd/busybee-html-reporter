@@ -1,23 +1,22 @@
 import typescript from 'rollup-plugin-typescript2'
-import commonjs from 'rollup-plugin-commonjs'
+import commonjs from '@rollup/plugin-commonjs'
 import external from 'rollup-plugin-peer-deps-external'
-import resolve from 'rollup-plugin-node-resolve'
-import url from 'rollup-plugin-url'
-import replace from 'rollup-plugin-replace';
+import resolve from '@rollup/plugin-node-resolve'
+import url from '@rollup/plugin-url'
+import replace from '@rollup/plugin-replace'
 import postcss from 'rollup-plugin-postcss'
-import pkg from './package.json'
 
 export default [
     {
       input: 'src/index.ts',
       output: [
         {
-          file: pkg.main,
+          file: 'dist/index.js',
           format: 'cjs',
           sourcemap: true
         },
         {
-          file: pkg.module,
+          file: 'dist/index.es.js',
           format: 'es',
           sourcemap: true
         }
@@ -26,15 +25,9 @@ export default [
       plugins: [
         external(),
         url(),
-        typescript({
-          rollupCommonJSResolveHack: true
-        }),
+        typescript(),
         resolve(),
-        commonjs({
-            namedExports: {
-                'node_modules/fs-extra/lib/index.js': ['removeSync', 'mkdirSync', 'writeFileSync', 'copySync']
-            }
-        })
+        commonjs()
       ]
     },
     {
@@ -49,21 +42,14 @@ export default [
       plugins: [
         external(),
         url(),
-        resolve(),
-        typescript({
-          rollupCommonJSResolveHack: true
-        }),
+        resolve({ dedupe: ['react', 'react-dom'] }),
+        typescript(),
         postcss(),
         replace({
             'process.env.NODE_ENV': JSON.stringify('production'),
+            preventAssignment: true
         }),
-        commonjs({
-            namedExports: {
-                'node_modules/react-dom/index.js': ['render'],
-                'node_modules/react/index.js': ['Children', 'Component', 'PropTypes', 'createElement'],
-                'node_modules/lodash/lodash.js': ['isEmpty', 'reject', 'upperFirst']
-            }
-        })
+        commonjs()
       ]
     }
   ]
