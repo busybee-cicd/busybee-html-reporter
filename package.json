@@ -1,12 +1,12 @@
 {
   "name": "busybee-html-reporter",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Publishes Busybee REST Test Suites to html",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "dependencies": {
     "bootstrap": "^5.3.8",
-    "busybee-results-react": "2.0.1",
+    "busybee-results-react": "2.1.0",
     "fs-extra": "^11.3.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
